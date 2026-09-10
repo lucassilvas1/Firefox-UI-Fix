@@ -1103,7 +1103,7 @@
         background: var(--in-content-primary-button-background-hover) !important;
       }
       .ShowMoreCard-contents::after {
-        background: linear-gradient(hsla(0deg, 0%, 100%, 0), var(--in-content-table-background)) !important;
+        background: linear-gradient(hsla(0, 0%, 100%, 0), var(--in-content-table-background)) !important;
       }
       input,
       textarea,
@@ -1242,15 +1242,6 @@
       .DevHub-callout-box a {
         color: var(--in-content-link-color) !important;
       }
-      body:is(.developer-hub, .statistics) {
-        /* Elements */
-        /* .developer-hub */
-        /* Text */
-        /* .developer-hub */
-        /* Background */
-        /* Border */
-        /* Others */
-      }
       body:is(.developer-hub, .statistics) #main-wrapper,
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul::after,
       body:is(.developer-hub, .statistics) .menu-nav > ul > li:hover::after,
@@ -1263,6 +1254,9 @@
         background: var(--in-content-page-background) !important;
         color: var(--in-content-page-color) !important;
       }
+      body:is(.developer-hub, .statistics) {
+        /* Elements */
+      }
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul a:hover,
       body:is(.developer-hub, .statistics) .install-note,
       body:is(.developer-hub, .statistics) .modal,
@@ -1272,6 +1266,9 @@
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul::after,
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul {
         box-shadow: 0 0 3px var(--in-content-border-color) !important;
+      }
+      body:is(.developer-hub, .statistics) {
+        /* .developer-hub */
       }
       body:is(.developer-hub, .statistics) #footer {
         background: linear-gradient(
@@ -1283,6 +1280,10 @@
           var(--in-content-page-background) 200px,
           rgba(12, 153, 213, 0) 400px
         ) !important;
+      }
+      body:is(.developer-hub, .statistics) {
+        /* Text */
+        /* .developer-hub */
       }
       body:is(.developer-hub, .statistics) #homepage h2,
       body:is(.developer-hub, .statistics) header h2,
@@ -1347,6 +1348,9 @@
       body:is(.developer-hub, .statistics) .island.criteria li.selected a {
         color: var(--orange-50) !important;
       }
+      body:is(.developer-hub, .statistics) {
+        /* Background */
+      }
       body:is(.developer-hub, .statistics) .secondary .addon-status,
       body:is(.developer-hub, .statistics) .devhub-form .item,
       body:is(.developer-hub, .statistics) #icons_default,
@@ -1404,6 +1408,9 @@
       body:is(.developer-hub, .statistics) span.tip:hover {
         background-color: var(--in-content-primary-button-background-hover) !important;
       }
+      body:is(.developer-hub, .statistics) {
+        /* Border */
+      }
       body:is(.developer-hub, .statistics) .submission-type-tabs a,
       body:is(.developer-hub, .statistics) .devhub-sidebar,
       body:is(.developer-hub, .statistics) .devhub-sidebar div.item,
@@ -1439,6 +1446,9 @@
       body:is(.developer-hub, .statistics) .results-inner {
         border-color: var(--in-content-border-color) !important;
         background: var(--in-content-border-color) !important;
+      }
+      body:is(.developer-hub, .statistics) {
+        /* Others */
       }
       body:is(.developer-hub, .statistics) #promos .view-button a,
       body:is(.developer-hub, .statistics) #upload-file-finish.button,
@@ -1860,7 +1870,7 @@
           }
           #sidebarContainer > #sidebarContent > #thumbnailView .thumbnailImage {
             filter: var(--uc-pdf-dark-filter);
-            box-shadow: 0 0 0 1px hsla(0deg, 0%, 100%, 0.5), 0 2px 8px hsla(0deg, 0%, 100%, 0.3) !important;
+            box-shadow: 0 0 0 1px hsla(0, 0%, 100%, 0.5), 0 2px 8px hsla(0, 0%, 100%, 0.3) !important;
           }
           #viewerContainer > #viewer > .page > .canvasWrapper > canvas {
             filter: var(--uc-pdf-dark-filter);
@@ -1872,7 +1882,8 @@
 }
 /** Fully Proton Mode *********************************************************/
 @supports -moz-bool-pref("userContent.page.proton") {
-  /*= Common contents ==========================================================*/ /*= abouts' common ===========================================================*/
+  /*= Common contents ==========================================================*/
+  /*= abouts' common ===========================================================*/
   @-moz-document url-prefix("about:"), url-prefix("chrome://pippki/content/"), url-prefix("chrome://browser/content/")
   {
     xul|treecols {
@@ -2294,12 +2305,14 @@
       background-image: url("../icons/performance.svg") !important;
       background-repeat: no-repeat !important;
       background-position: center !important;
-      color: inherit !important;
     }
     @supports not -moz-bool-pref("userChrome.rounding.square_button") {
       .profiler-icon {
         border-radius: 8px !important;
       }
+    }
+    .profiler-icon {
+      color: inherit !important;
     }
   }
   @-moz-document url-prefix("about:profiling") {
@@ -3027,12 +3040,14 @@
         }
         menuitem[type="checkbox"]:focus > .menu-iconic-left > .menu-iconic-icon {
           outline: 2px solid var(--focus-outline-color, AccentColor) !important;
-          outline-offset: var(--focus-outline-offset, 2px) !important;
         }
         @supports -moz-bool-pref("userChrome.compatibility.accent_color") {
           menuitem[type="checkbox"]:focus > .menu-iconic-left > .menu-iconic-icon {
             outline: 2px solid var(--focus-outline-color, -moz-accent-color) !important;
           }
+        }
+        menuitem[type="checkbox"]:focus > .menu-iconic-left > .menu-iconic-icon {
+          outline-offset: var(--focus-outline-offset, 2px) !important;
         }
         @media (-moz-gtk-csd-available) and (prefers-contrast) {
           menuitem[type="checkbox"]:not([disabled="true"]) > .menu-iconic-left > .menu-iconic-icon {
@@ -3570,7 +3585,8 @@
           background-position: left var(--context-menu-background-padding) center !important;
           padding-inline-start: 0 !important;
         }
-      } /* Padding - Linux */
+      }
+      /* Padding - Linux */
       @media (-moz-gtk-csd-available) {
         :root {
           --context-menu-background-padding-default: 6px;

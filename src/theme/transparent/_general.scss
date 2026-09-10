@@ -10,16 +10,30 @@
   background-image: none !important;
 }
 
-#nav-bar,
-#PersonalToolbar {
-  background-image: linear-gradient(
-    var(--toolbar-bgcolor, var(--toolbar-background-color)),
-    var(--toolbar-bgcolor, var(--toolbar-background-color))
-  ), var(--lwt-additional-images);
-  background-repeat: repeat-x, var(--lwt-background-tiling);
-  background-position: 0 0, var(--lwt-background-alignment);
-  background-attachment: scroll, fixed !important;
-  background-size: auto 100%, auto auto;
+// Keep a lightweight theme's header image intact on the nav-bar/bookmarks
+// bar even though the surrounding frame is glass.
+@include lwtheme {
+  #nav-bar,
+  #PersonalToolbar {
+    background-image: linear-gradient(
+      var(--toolbar-bgcolor, var(--toolbar-background-color)),
+      var(--toolbar-bgcolor, var(--toolbar-background-color))
+    ), var(--lwt-additional-images);
+    background-repeat: repeat-x, var(--lwt-background-tiling);
+    background-position: 0 0, var(--lwt-background-alignment);
+    background-attachment: scroll, fixed !important;
+    background-size: auto 100%, auto auto;
+  }
+}
+
+// No theme active: let the nav-bar/bookmarks bar stay transparent so glass
+// shows through them too, instead of repainting them opaque.
+@include not_lwtheme {
+  #nav-bar,
+  #PersonalToolbar {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
 }
 
 #appcontent {

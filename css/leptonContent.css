@@ -1101,7 +1101,7 @@
         background: var(--in-content-primary-button-background-hover) !important;
       }
       .ShowMoreCard-contents::after {
-        background: linear-gradient(hsla(0deg, 0%, 100%, 0), var(--in-content-table-background)) !important;
+        background: linear-gradient(hsla(0, 0%, 100%, 0), var(--in-content-table-background)) !important;
       }
       input,
       textarea,
@@ -1240,15 +1240,6 @@
       .DevHub-callout-box a {
         color: var(--in-content-link-color) !important;
       }
-      body:is(.developer-hub, .statistics) {
-        /* Elements */
-        /* .developer-hub */
-        /* Text */
-        /* .developer-hub */
-        /* Background */
-        /* Border */
-        /* Others */
-      }
       body:is(.developer-hub, .statistics) #main-wrapper,
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul::after,
       body:is(.developer-hub, .statistics) .menu-nav > ul > li:hover::after,
@@ -1261,6 +1252,9 @@
         background: var(--in-content-page-background) !important;
         color: var(--in-content-page-color) !important;
       }
+      body:is(.developer-hub, .statistics) {
+        /* Elements */
+      }
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul a:hover,
       body:is(.developer-hub, .statistics) .install-note,
       body:is(.developer-hub, .statistics) .modal,
@@ -1270,6 +1264,9 @@
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul::after,
       body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul {
         box-shadow: 0 0 3px var(--in-content-border-color) !important;
+      }
+      body:is(.developer-hub, .statistics) {
+        /* .developer-hub */
       }
       body:is(.developer-hub, .statistics) #footer {
         background: linear-gradient(
@@ -1281,6 +1278,10 @@
           var(--in-content-page-background) 200px,
           rgba(12, 153, 213, 0) 400px
         ) !important;
+      }
+      body:is(.developer-hub, .statistics) {
+        /* Text */
+        /* .developer-hub */
       }
       body:is(.developer-hub, .statistics) #homepage h2,
       body:is(.developer-hub, .statistics) header h2,
@@ -1345,6 +1346,9 @@
       body:is(.developer-hub, .statistics) .island.criteria li.selected a {
         color: var(--orange-50) !important;
       }
+      body:is(.developer-hub, .statistics) {
+        /* Background */
+      }
       body:is(.developer-hub, .statistics) .secondary .addon-status,
       body:is(.developer-hub, .statistics) .devhub-form .item,
       body:is(.developer-hub, .statistics) #icons_default,
@@ -1402,6 +1406,9 @@
       body:is(.developer-hub, .statistics) span.tip:hover {
         background-color: var(--in-content-primary-button-background-hover) !important;
       }
+      body:is(.developer-hub, .statistics) {
+        /* Border */
+      }
       body:is(.developer-hub, .statistics) .submission-type-tabs a,
       body:is(.developer-hub, .statistics) .devhub-sidebar,
       body:is(.developer-hub, .statistics) .devhub-sidebar div.item,
@@ -1437,6 +1444,9 @@
       body:is(.developer-hub, .statistics) .results-inner {
         border-color: var(--in-content-border-color) !important;
         background: var(--in-content-border-color) !important;
+      }
+      body:is(.developer-hub, .statistics) {
+        /* Others */
       }
       body:is(.developer-hub, .statistics) #promos .view-button a,
       body:is(.developer-hub, .statistics) #upload-file-finish.button,
@@ -1857,7 +1867,7 @@
           }
           #sidebarContainer > #sidebarContent > #thumbnailView .thumbnailImage {
             filter: var(--uc-pdf-dark-filter);
-            box-shadow: 0 0 0 1px hsla(0deg, 0%, 100%, 0.5), 0 2px 8px hsla(0deg, 0%, 100%, 0.3) !important;
+            box-shadow: 0 0 0 1px hsla(0, 0%, 100%, 0.5), 0 2px 8px hsla(0, 0%, 100%, 0.3) !important;
           }
           #viewerContainer > #viewer > .page > .canvasWrapper > canvas {
             filter: var(--uc-pdf-dark-filter);
@@ -1869,7 +1879,8 @@
 }
 /** Fully Proton Mode *********************************************************/
 @media -moz-pref("userContent.page.proton") {
-  /*= Common contents ==========================================================*/ /*= abouts' common ===========================================================*/
+  /*= Common contents ==========================================================*/
+  /*= abouts' common ===========================================================*/
   @-moz-document url-prefix("about:"), url-prefix("chrome://pippki/content/"), url-prefix("chrome://browser/content/")
   {
     xul|treecols {
@@ -2291,12 +2302,14 @@
       background-image: url("../icons/performance.svg") !important;
       background-repeat: no-repeat !important;
       background-position: center !important;
-      color: inherit !important;
     }
     @media not -moz-pref("userChrome.rounding.square_button") {
       .profiler-icon {
         border-radius: 8px !important;
       }
+    }
+    .profiler-icon {
+      color: inherit !important;
     }
   }
   @-moz-document url-prefix("about:profiling") {
@@ -3024,12 +3037,14 @@
         }
         menuitem[type="checkbox"]:focus > .menu-iconic-left > .menu-iconic-icon {
           outline: 2px solid var(--focus-outline-color, AccentColor) !important;
-          outline-offset: var(--focus-outline-offset, 2px) !important;
         }
         @media -moz-pref("userChrome.compatibility.accent_color") {
           menuitem[type="checkbox"]:focus > .menu-iconic-left > .menu-iconic-icon {
             outline: 2px solid var(--focus-outline-color, -moz-accent-color) !important;
           }
+        }
+        menuitem[type="checkbox"]:focus > .menu-iconic-left > .menu-iconic-icon {
+          outline-offset: var(--focus-outline-offset, 2px) !important;
         }
         @media (-moz-gtk-csd-available) and (prefers-contrast) {
           menuitem[type="checkbox"]:not([disabled="true"]) > .menu-iconic-left > .menu-iconic-icon {
@@ -3735,7 +3750,8 @@
       }
     }
   }
-} /*@ DEPRECATED @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+}
+/*@ DEPRECATED @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 /** Compatibility *************************************************************/
 @-moz-document url-prefix("about:preferences") {
   .content-blocking-warning.info-box-container > hbox > .content-blocking-warning-image {
@@ -4088,18 +4104,12 @@
     .context-menu-item span[data-l10n-id="newtab-menu-open-new-window"] {
       --menuitem-image: url("chrome://browser/skin/window.svg");
     }
-  }
-  @media (-moz-bool-pref: "userChrome.icon.context_menu") {
     .context-menu-item span[data-l10n-id="newtab-menu-open-new-private-window"] {
       --menuitem-image: url("chrome://browser/skin/privateBrowsing.svg");
     }
-  }
-  @media (-moz-bool-pref: "userChrome.icon.context_menu") {
     .context-menu-item span[data-l10n-id="newtab-menu-dismiss"] {
       --menuitem-image: url("chrome://global/skin/icons/delete.svg");
     }
-  }
-  @media (-moz-bool-pref: "userChrome.icon.context_menu") {
     .context-menu-item span[data-l10n-id="newtab-menu-delete-history"] {
       --menuitem-image: url("../icons/eraser.svg");
     }
@@ -4169,7 +4179,8 @@
       border-color: var(--newtab-primary-action-background) !important;
       transition: border-color 0.5s var(--animation-easing-function);
     }
-  } /** Activity Stream - Pocket order to last **********************************/
+  }
+  /** Activity Stream - Pocket order to last **********************************/
   @media (-moz-bool-pref: "userContent.newTab.pocket_to_last") {
     .body-wrapper.on {
       display: flex;
@@ -4196,9 +4207,6 @@
       --newtab-search-dropdown-color: var(--newtab-search-background-color) !important;
       --newtab-element-hover-color: color-mix(in srgb, currentColor 9%, transparent) !important;
     }
-    /* Padding */
-    /* Pointer */
-    /*- Fix Color For Nightly ------------------------------------------------*/
   }
   @media (-moz-bool-pref: "userContent.newTab.searchbar") and (prefers-color-scheme: dark) {
     #root {
@@ -4213,12 +4221,11 @@
     }
   }
   @media (-moz-bool-pref: "userContent.newTab.searchbar") {
+    /* Padding */
     #searchSuggestionTable {
       border-radius: 4px !important;
       -moz-window-shadow: cliprounded;
     }
-  }
-  @media (-moz-bool-pref: "userContent.newTab.searchbar") {
     .contentSearchSuggestionTable .contentSearchOneOffItem {
       width: 32px !important;
       height: 32px !important;
@@ -4231,8 +4238,6 @@
       border-image: none !important; /* Original: linear-gradient(transparent 18%, var(--newtab-border-secondary-color) 18%, var(--newtab-border-secondary-color) 82%, transparent 82%) 1; */
       border-inline-end: none !important; /* Original: 1px solid; */
     }
-  }
-  @media (-moz-bool-pref: "userContent.newTab.searchbar") {
     #contentSearchSettingsButton::before {
       content: url("chrome://global/skin/icons/settings.svg") !important;
       display: inline-flex;
@@ -4244,14 +4249,12 @@
       margin-inline-end: 5px;
       vertical-align: -25%;
     }
-  }
-  @media (-moz-bool-pref: "userContent.newTab.searchbar") {
+    /* Pointer */
     .contentSearchSuggestionTable .contentSearchOneOffItem,
     #contentSearchSettingsButton {
       cursor: pointer;
     }
-  }
-  @media (-moz-bool-pref: "userContent.newTab.searchbar") {
+    /*- Fix Color For Nightly ------------------------------------------------*/
     .contentSearchSuggestionTable,
     .contentSearchHeaderRow,
     .contentSearchHeader,
@@ -4259,8 +4262,6 @@
       color: var(--newtab-text-primary-color) !important;
       background: var(--newtab-search-background-color) !important;
     }
-  }
-  @media (-moz-bool-pref: "userContent.newTab.searchbar") {
     .contentSearchSuggestionTable .contentSearchSuggestionRow.selected,
     .contentSearchSuggestionTable .contentSearchSettingsButton:hover {
       color: var(--newtab-text-primary-color) !important;
@@ -4852,7 +4853,7 @@
       background: var(--in-content-primary-button-background-hover) !important;
     }
     .ShowMoreCard-contents::after {
-      background: linear-gradient(hsla(0deg, 0%, 100%, 0), var(--in-content-table-background)) !important;
+      background: linear-gradient(hsla(0, 0%, 100%, 0), var(--in-content-table-background)) !important;
     }
     input,
     textarea,
@@ -4991,15 +4992,6 @@
     .DevHub-callout-box a {
       color: var(--in-content-link-color) !important;
     }
-    body:is(.developer-hub, .statistics) {
-      /* Elements */
-      /* .developer-hub */
-      /* Text */
-      /* .developer-hub */
-      /* Background */
-      /* Border */
-      /* Others */
-    }
     body:is(.developer-hub, .statistics) #main-wrapper,
     body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul::after,
     body:is(.developer-hub, .statistics) .menu-nav > ul > li:hover::after,
@@ -5012,6 +5004,9 @@
       background: var(--in-content-page-background) !important;
       color: var(--in-content-page-color) !important;
     }
+    body:is(.developer-hub, .statistics) {
+      /* Elements */
+    }
     body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul a:hover,
     body:is(.developer-hub, .statistics) .install-note,
     body:is(.developer-hub, .statistics) .modal,
@@ -5021,6 +5016,9 @@
     body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul::after,
     body:is(.developer-hub, .statistics) .menu-nav > ul > li > ul {
       box-shadow: 0 0 3px var(--in-content-border-color) !important;
+    }
+    body:is(.developer-hub, .statistics) {
+      /* .developer-hub */
     }
     body:is(.developer-hub, .statistics) #footer {
       background: linear-gradient(
@@ -5032,6 +5030,10 @@
         var(--in-content-page-background) 200px,
         rgba(12, 153, 213, 0) 400px
       ) !important;
+    }
+    body:is(.developer-hub, .statistics) {
+      /* Text */
+      /* .developer-hub */
     }
     body:is(.developer-hub, .statistics) #homepage h2,
     body:is(.developer-hub, .statistics) header h2,
@@ -5096,6 +5098,9 @@
     body:is(.developer-hub, .statistics) .island.criteria li.selected a {
       color: var(--orange-50) !important;
     }
+    body:is(.developer-hub, .statistics) {
+      /* Background */
+    }
     body:is(.developer-hub, .statistics) .secondary .addon-status,
     body:is(.developer-hub, .statistics) .devhub-form .item,
     body:is(.developer-hub, .statistics) #icons_default,
@@ -5153,6 +5158,9 @@
     body:is(.developer-hub, .statistics) span.tip:hover {
       background-color: var(--in-content-primary-button-background-hover) !important;
     }
+    body:is(.developer-hub, .statistics) {
+      /* Border */
+    }
     body:is(.developer-hub, .statistics) .submission-type-tabs a,
     body:is(.developer-hub, .statistics) .devhub-sidebar,
     body:is(.developer-hub, .statistics) .devhub-sidebar div.item,
@@ -5188,6 +5196,9 @@
     body:is(.developer-hub, .statistics) .results-inner {
       border-color: var(--in-content-border-color) !important;
       background: var(--in-content-border-color) !important;
+    }
+    body:is(.developer-hub, .statistics) {
+      /* Others */
     }
     body:is(.developer-hub, .statistics) #promos .view-button a,
     body:is(.developer-hub, .statistics) #upload-file-finish.button,
@@ -5609,7 +5620,7 @@
       }
       #sidebarContainer > #sidebarContent > #thumbnailView .thumbnailImage {
         filter: var(--uc-pdf-dark-filter);
-        box-shadow: 0 0 0 1px hsla(0deg, 0%, 100%, 0.5), 0 2px 8px hsla(0deg, 0%, 100%, 0.3) !important;
+        box-shadow: 0 0 0 1px hsla(0, 0%, 100%, 0.5), 0 2px 8px hsla(0, 0%, 100%, 0.3) !important;
       }
       #viewerContainer > #viewer > .page > .canvasWrapper > canvas {
         filter: var(--uc-pdf-dark-filter);
@@ -5619,7 +5630,8 @@
 }
 /** Fully Proton Mode *********************************************************/
 @media (-moz-bool-pref: "userContent.page.proton") {
-  /*= Common contents ==========================================================*/ /*= abouts' common ===========================================================*/
+  /*= Common contents ==========================================================*/
+  /*= abouts' common ===========================================================*/
   @-moz-document url-prefix("about:"), url-prefix("chrome://pippki/content/"), url-prefix("chrome://browser/content/")
   {
     xul|treecols {
@@ -5863,16 +5875,6 @@
     }
   }
   /*= Field Border =============================================================*/
-  /*= View Source ==============================================================*/
-  /*= Directory View ===========================================================*/
-  /*= about:plugins ============================================================*/
-  /*= about:cache ==============================================================*/
-  /*= about:checkerboard =======================================================*/
-  /*= about:memory =============================================================*/
-  /*= about:preferences ========================================================*/
-  /*= about:processes ==========================================================*/
-  /*= about:processes ==========================================================*/
-  /*= chrome://browser/content/places/places.xhtml =============================*/
 }
 @media (-moz-bool-pref: "userContent.page.proton") and (-moz-bool-pref: "userContent.page.field_border") and (prefers-reduced-motion: no-preference) {
   @-moz-document url-prefix("about:") {
@@ -5887,6 +5889,7 @@
   }
 }
 @media (-moz-bool-pref: "userContent.page.proton") {
+  /*= View Source ==============================================================*/
   @-moz-document url-prefix("view-source") {
     :root {
       background-color: var(--in-content-page-background) !important; /* Original: white */
@@ -5944,8 +5947,7 @@
       color: var(--in-content-error-text-color) !important; /* Original: red */
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= Directory View ===========================================================*/
   @-moz-document url-prefix("about:sync-log"), regexp("^(((jar:)?file:///)|(chrome://)).*/$")
   {
     body {
@@ -5959,16 +5961,14 @@
       vertical-align: top !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:plugins ============================================================*/
   @-moz-document url-prefix("about:plugins") {
     .notice {
       background: var(--in-content-box-background) !important;
       border: 1px solid var(--in-content-border-color) !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:cache ==============================================================*/
   @-moz-document url-prefix("about:cache") {
     table {
       padding: 0 !important;
@@ -5979,8 +5979,7 @@
       text-align: match-parent !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:checkerboard =======================================================*/
   @-moz-document url-prefix("about:checkerboard") {
     #canvas {
       border: 1px solid var(--in-content-border-color) !important;
@@ -5989,8 +5988,7 @@
       vertical-align: bottom !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:memory =============================================================*/
   @-moz-document url-prefix("about:memory") {
     .opsRow,
     .section {
@@ -6001,8 +5999,7 @@
       vertical-align: bottom !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:preferences ========================================================*/
   @-moz-document url-prefix("chrome://browser/content")
   {
     #sanitizeEverythingWarningIcon {
@@ -6013,8 +6010,6 @@
       height: 48px;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
   @-moz-document url-prefix("about:preferences"), url-prefix("chrome://browser/content/preferences/dialogs/"), url-prefix("chrome://pippki/content/")
   {
     :is(.contentPane, .main-content, #certmanagertabs) richlistbox > richlistitem:hover,
@@ -6034,8 +6029,6 @@
       background-color: var(--in-content-box-background-odd);
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
   @-moz-document url-prefix("about:preferences") {
     .privacy-extra-information > .custom-option:not(:first-child) {
       margin-block: 2px !important; /* Original: 10px */
@@ -6044,8 +6037,7 @@
       margin-top: 4px !important; /* Original: 19px */
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:processes ==========================================================*/
   @-moz-document url-prefix("about:processes"), url-prefix("about:performance") {
     td.type.favicon[style*='background-image: url("chrome://global/skin/icons/link.svg");']
     {
@@ -6056,23 +6048,22 @@
       background-image: url("../icons/performance.svg") !important;
       background-repeat: no-repeat !important;
       background-position: center !important;
-      color: inherit !important;
     }
     @media (-moz-bool-pref: "userContent.page.proton") and (not (-moz-bool-pref: "userChrome.rounding.square_button")) {
       .profiler-icon {
         border-radius: 8px !important;
       }
     }
+    .profiler-icon {
+      color: inherit !important;
+    }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
   @-moz-document url-prefix("about:profiling") {
     .perf-intro-icon {
       background-image: url("../icons/performance.svg") !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= about:processes ==========================================================*/
   @-moz-document url-prefix("about:support") {
     #reset-box-button {
       --in-content-focus-outline-color: var(--in-content-danger-button-background) !important;
@@ -6091,8 +6082,7 @@
       border-color: var(--in-content-primary-button-border-active) !important;
     }
   }
-}
-@media (-moz-bool-pref: "userContent.page.proton") {
+  /*= chrome://browser/content/places/places.xhtml =============================*/
   @-moz-document url("chrome://browser/content/places/places.xhtml")
   {
     /** Library - Icons Replace *************************************************/
@@ -6351,16 +6341,6 @@
         padding: 5px !important;
         border-radius: 4px !important;
       }
-      /*- Search Bar & Input ---------------------------------------------------*/
-      /*- Sidebar & Splitter ---------------------------------------------------*/
-      /*- Downloads Pane -------------------------------------------------------*/
-      /*- Tree -----------------------------------------------------------------*/
-      /*- Info Box -------------------------------------------------------------*/
-      /*- Radio Button -------------------------------------------------------------*/
-      /* Disabled checkboxes, radios and labels */
-      /*- Check Box ----------------------------------------------------------------*/
-      /* From checkbox.css */
-      /*- Menu Separator -----------------------------------------------------------*/
     }
     @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") and (-moz-bool-pref: "userChrome.rounding.square_button") {
       #placesToolbar > toolbarbutton {
@@ -6371,8 +6351,6 @@
       #placesToolbar > toolbarbutton[disabled] {
         opacity: 0.6 !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #placesToolbar > toolbarbutton:not([disabled]):hover {
         background-color: var(--organizer-hover-background) !important;
         color: var(--organizer-hover-color) !important;
@@ -6380,16 +6358,12 @@
       #placesToolbar > toolbarbutton:not([disabled]):hover:active {
         background-color: var(--organizer-selected-background) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #placesToolbar > toolbarbutton > .toolbarbutton-icon,
       #placesMenu > menu > image,
       #placesMenu > menu > :is(.menubar-text, .menu-text) {
         -moz-context-properties: fill !important;
         fill: currentColor !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #placesMenu {
         margin-inline-start: 6px !important;
       }
@@ -6413,21 +6387,18 @@
         background-color: var(--organizer-hover-background) !important;
         color: var(--organizer-hover-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #placesMenu > menu:hover:active,
       #placesMenu > menu[open] {
         background-color: var(--organizer-selected-background) !important;
         color: var(--organizer-selected-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #placesMenu > menu > :is(.menubar-text, .menu-text) {
         margin-block: 0 !important; /* override menu.css */
         padding-inline-end: 4px !important;
       }
     }
     @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Search Bar & Input ---------------------------------------------------*/
       #searchFilter,
       #detailsPane html|input {
         appearance: none !important;
@@ -6456,11 +6427,10 @@
       }
     }
     @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Sidebar & Splitter ---------------------------------------------------*/
       #placesList {
         background-color: var(--organizer-pane-background) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #placesView > splitter {
         border: 0 !important;
         border-inline-end: 1px solid var(--organizer-border-color) !important;
@@ -6470,46 +6440,34 @@
         margin-inline-start: -3px !important;
         position: relative !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Downloads Pane -------------------------------------------------------*/
       #downloadsRichListBox,
       #downloadsListBox {
         color: var(--organizer-color) !important;
         background-color: var(--organizer-content-background) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #clearDownloadsButton:focus-visible {
         outline: 2px solid var(--organizer-outline-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       richlistitem[selected="true"],
       richlistitem:hover {
         background-color: var(--organizer-hover-background) !important;
         color: var(--organizer-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       richlistbox:where(:focus) > richlistitem[selected="true"] {
         background-color: var(--organizer-selected-background) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Tree -----------------------------------------------------------------*/
       #contentView treecol {
         /* Use box-shadow to draw a bottom border instead of border-bottom
            * because otherwise the items on contentView won't be perfectly
            * aligned with the items on the sidebar. */
         box-shadow: inset 0 -1px var(--organizer-border-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       tree {
         background-color: var(--organizer-content-background) !important;
         color: var(--organizer-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       treecol:not([hideheader="true"]),
       treecolpicker {
         appearance: none !important;
@@ -6518,8 +6476,6 @@
         color: var(--organizer-color, inherit) !important;
         padding: 5px 10px !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       treecol:not([hideheader="true"], [sortable="false"]):hover,
       treecolpicker:hover {
         background-color: var(--organizer-hover-background) !important;
@@ -6529,8 +6485,6 @@
       treecolpicker:hover:active {
         background-color: var(--organizer-selected-background) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       treecol:not([hideheader="true"], :first-child),
       treecolpicker {
         padding-left: 10px !important;
@@ -6546,15 +6500,11 @@
           )
           1 1 !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       treecol[sortDirection]:not([hideheader="true"]) > xul|*.treecol-sortdirection {
         fill: currentColor !important;
         width: 18px !important;
         height: 18px !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       treechildren::-moz-tree-row {
         background-color: transparent !important;
       }
@@ -6590,16 +6540,13 @@
       treechildren::-moz-tree-drop-feedback {
         background-color: var(--organizer-outline-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Info Box -------------------------------------------------------------*/
       #detailsPane {
         background-color: var(--organizer-pane-background) !important;
         color: var(--organizer-color) !important;
         padding: 5px !important;
         border-top: 1px solid var(--organizer-border-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #editBookmarkPanelRows .expander-up,
       #editBookmarkPanelRows .expander-down {
         appearance: none !important;
@@ -6632,29 +6579,21 @@
         background-color: var(--organizer-selected-background) !important;
         color: var(--organizer-selected-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #editBookmarkPanelRows .expander-up:focus-visible,
       #editBookmarkPanelRows .expander-down:focus-visible {
         outline: 2px solid var(--organizer-outline-color) !important;
         outline-offset: -1px !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #editBookmarkPanelRows .expander-up > .button-box,
       #editBookmarkPanelRows .expander-down > .button-box {
         padding: 0 !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #editBookmarkPanelRows .expander-up {
         list-style-image: url("chrome://global/skin/icons/arrow-up-12.svg");
       }
       #editBookmarkPanelRows .expander-down {
         list-style-image: url("chrome://global/skin/icons/arrow-down-12.svg");
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #places input {
         border: 1px solid var(--organizer-pane-field-border-color) !important;
         border-radius: 4px !important;
@@ -6674,19 +6613,13 @@
         outline: 2px solid var(--organizer-outline-color) !important;
         outline-offset: -1px !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #places input:not(:read-write):focus {
         outline: none !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       .caption-label {
         margin-inline-start: 8px !important;
         color: var(--organizer-deemphasized-color) !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       #editBMPanel_tagsSelectorRow > richlistbox {
         appearance: none !important;
         color: var(--organizer-color) !important;
@@ -6714,6 +6647,7 @@
       }
     }
     @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Radio Button -------------------------------------------------------------*/
       menuitem[type="radio"] {
         /* margin-inline-start: 0 !important; */
         appearance: none !important;
@@ -6761,15 +6695,14 @@
         margin-inline: 0 8px !important;
         padding-inline-start: 0 !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /* Disabled checkboxes, radios and labels */
       menuitem[type="radio"][disabled="true"],
       menuitem[type="checkbox"][disabled="true"] {
         color: inherit !important;
         opacity: 0.5 !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Check Box ----------------------------------------------------------------*/
+      /* From checkbox.css */
       menuitem[type="checkbox"] {
         appearance: none !important;
         align-items: center !important;
@@ -6927,13 +6860,12 @@
       menuitem[type="checkbox"] > .menu-iconic-text {
         margin: 1px 0 !important;
       }
-    }
-    @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
       menuitem[type="checkbox"][disabled="true"] {
         opacity: 0.4 !important;
       }
     }
     @media (-moz-bool-pref: "userContent.page.proton") and (-moz-gtk-csd-available) and (-moz-bool-pref: "userContent.page.proton") {
+      /*- Menu Separator -----------------------------------------------------------*/
       menuseparator {
         appearance: none !important;
         min-width: 2px;
@@ -7469,8 +7401,6 @@
       #orgUndo {
         --menuitem-image: url("../icons/undo.svg");
       }
-      /*= viewMenuPopup ============================================================*/
-      /*= maintenanceButtonPopup ===================================================*/
     }
     @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") and (-moz-bool-pref: "userChrome.icon.menu.full") {
       #orgRedo {
@@ -7481,43 +7411,31 @@
       #orgCut {
         --menuitem-image: url("../icons/edit-cut.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #orgCopy {
         --menuitem-image: url("../icons/edit-copy.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #orgPaste {
         --menuitem-image: url("../icons/edit-paste.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #orgDelete {
         --menuitem-image: url("chrome://global/skin/icons/delete.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #orgSelectAll {
         --menuitem-image: url("../icons/select-all-on.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #orgClose {
         --menuitem-image: url("chrome://global/skin/icons/close.svg");
       }
     }
     @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
+      /*= viewMenuPopup ============================================================*/
       #viewColumns {
         --menuitem-image: url("chrome://global/skin/icons/columnpicker.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #viewSort {
         --menuitem-image: url("../icons/text-sort-ascending.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
+      /*= maintenanceButtonPopup ===================================================*/
       #backupBookmarks {
         --menuitem-image: url("../icons/datastore.svg");
       }
@@ -7531,13 +7449,9 @@
       #fileImport {
         --menuitem-image: url("../icons/toolbarButton-download.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #fileExport {
         --menuitem-image: url("../icons/toolbarButton-upload.svg");
       }
-    }
-    @media (not (-moz-bool-pref: "userChrome.icon.disabled")) and (-moz-bool-pref: "userChrome.icon.menu") and (-moz-bool-pref: "userChrome.icon.global_menu") {
       #browserImport {
         --menuitem-image: url("chrome://browser/skin/import.svg");
       }
