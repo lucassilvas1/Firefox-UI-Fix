@@ -1,14 +1,42 @@
 // @media (-moz-windows-accent-color-in-titlebar: 0) {
 // }
 
+// Private-browsing windows carry Firefox's own built-in "private" lwtheme
+// (a purple, opaque-ish theme, not something the user installed) -
+// confirmed via RDP that every one of our $not_lwtheme-scoped overrides
+// below was silently no-opping there (hasLwtheme: true), leaving private
+// windows with the stock rounded pill + opaque purple field instead of our
+// square, frosted glass look. Treat "Firefox's own private theme" the same
+// as "no theme" throughout this file.
+$not_lwtheme_ext: ":is(#{$not_lwtheme}, [privatebrowsingmode='temporary'])";
+
 :root,
 #navigator-toolbox {
   --lwt-accent-color: transparent !important; // Window
   --lwt-text-color: WindowText !important;
+  // Firefox's built-in lightweight themes (private browsing's purple theme
+  // included) define a SEPARATE variable, --lwt-accent-color-inactive, that
+  // native CSS swaps in for the toolbox background specifically when the
+  // window loses focus (:-moz-window-inactive) - confirmed via RDP that
+  // the private theme sets this to a darker purple (rgb(40, 29, 68)).
+  // Overriding only --lwt-accent-color above left inactive private windows
+  // repainting opaque on blur. Neutralize both.
+  --lwt-accent-color-inactive: transparent !important;
+}
+
+// Newer Firefox (native browser-shared.css, not Lepton) added a titlebar
+// gradient via:
+//   :root:not([theme-image-in-toolbox]) body,
+//   :root[theme-image-in-toolbox] #navigator-toolbox { background-image: ... }
+// which paints straight over the Aero glass instead of letting it show
+// through. Neutralize on the same selector pair.
+:root:not([theme-image-in-toolbox]) body,
+:root[theme-image-in-toolbox] #navigator-toolbox {
+  background-image: none !important;
 }
 
 // Frosted address bar, closer to Windows Explorer's glass address bar
-:root#{$not_lwtheme} {
+:root#{$not_lwtheme_ext} {
   --uc-aero-field-opacity: 85%;
   --uc-aero-field-border-opacity: 75%;
   --uc-aero-field-highlight-opacity: 65%;
@@ -23,18 +51,18 @@
 // Firefox — the old #urlbar-background ID this used to be doesn't exist
 // anymore. .urlbar-input-container also clips its own contents to
 // --urlbar-border-radius, so it's squared off too for good measure.
-:root#{$not_lwtheme} .urlbar-input-container,
-:root#{$not_lwtheme} .urlbar-background,
-:root#{$not_lwtheme} #searchbar {
+:root#{$not_lwtheme_ext} .urlbar-input-container,
+:root#{$not_lwtheme_ext} .urlbar-background,
+:root#{$not_lwtheme_ext} #searchbar {
   --urlbar-border-radius: 0px !important;
   --toolbarbutton-border-radius: 0px !important;
   border-radius: 0 !important;
 }
 
-:root#{$not_lwtheme} #urlbar {
+:root#{$not_lwtheme_ext} #urlbar {
   border: 1px solid #3a3a3a !important;
 }
-:root#{$not_lwtheme} .urlbar-input-container {
+:root#{$not_lwtheme_ext} .urlbar-input-container {
   border: 1px solid white !important;
 }
 
@@ -64,7 +92,7 @@
 // clipping bug and stayed square-cornered even after the selected-tab fix
 // above, since that fix only zeroed out .tab-background's fill for the
 // selected/multiselected case. Moved below onto .tab-content instead.
-:root#{$not_lwtheme} .tab-background {
+:root#{$not_lwtheme_ext} .tab-background {
   background-color: transparent !important;
 }
 
@@ -72,29 +100,20 @@
 // same shape/rounding treatment below but stay fully transparent, except
 // for their own hover-dim (see above) which we recreate here on
 // .tab-content so it actually gets rounded corners too.
-:root#{$not_lwtheme} .tabbrowser-tab:is([selected], [multiselected]) .tab-content {
+:root#{$not_lwtheme_ext} .tabbrowser-tab:is([selected], [multiselected]) .tab-content {
   background-color: color-mix(in srgb, var(--win-component-bgcolor, White) var(--uc-aero-field-opacity), transparent) !important;
 }
-:root#{$not_lwtheme} .tabbrowser-tab:hover:not([selected], [multiselected]) .tab-content {
+:root#{$not_lwtheme_ext} .tabbrowser-tab:hover:not([selected], [multiselected]) .tab-content {
   background-color: var(--uc-tab-hover-dim-color, color-mix(in srgb, currentColor 10%, transparent)) !important;
 }
 
-:root#{$not_lwtheme} .tabbrowser-tab .tab-content {
+// Bottom corners always rounded now (not just while the navbar is
+// hover-expanded) - no more conditional --uc-tab-border-bottom-radius
+// toggle or transition needed, since the shape no longer changes state.
+:root#{$not_lwtheme_ext} .tabbrowser-tab .tab-content {
   height: 28px !important;
   align-self: center !important;
-  border-radius: var(--tab-border-radius, 4px) var(--tab-border-radius, 4px)
-    var(--uc-tab-border-bottom-radius, 0px) var(--uc-tab-border-bottom-radius, 0px) !important;
-  // Persist through the navbar's own ~600ms hide delay instead of snapping
-  // back to square the instant hover/focus is lost - same instant-in/
-  // delayed-out pattern Lepton's own autohide navbar uses (src/autohide/
-  // _navbar.scss), reusing its --uc-autohide-toolbar-delay so both stay
-  // in sync automatically.
-  transition: border-bottom-left-radius 0s var(--uc-autohide-toolbar-delay, 600ms),
-    border-bottom-right-radius 0s var(--uc-autohide-toolbar-delay, 600ms);
-}
-:root#{$not_lwtheme} #navigator-toolbox:is(:hover, :focus-within) .tabbrowser-tab .tab-content {
-  --uc-tab-border-bottom-radius: var(--tab-border-radius, 4px) !important;
-  transition-delay: 0s !important;
+  border-radius: var(--tab-border-radius, 4px) !important;
 }
 
 // Lepton also draws a separate "connect tab to window" decoration on
@@ -102,18 +121,44 @@
 // bottom-corner-{left,right}.svg, a CONCAVE quarter-circle, curving the
 // opposite way from a normal rounded corner) that's always on for the
 // selected tab by default (src/tab/selected_tab/_bottom_rounded_corner.scss).
-// It's driven by --uc-tab-corner-rounding, entirely independent of
-// --uc-tab-border-bottom-radius above - that's why changing the radius
-// variable never visibly did anything: this notch was still being painted
-// on top/beside it regardless of its value. Collapse the notch to 0 width
-// whenever we're rounding the corner instead, or the two fight each other.
-:root#{$not_lwtheme} #navigator-toolbox:is(:hover, :focus-within) #TabsToolbar {
+// It's driven by --uc-tab-corner-rounding, entirely independent of the
+// border-radius above - that's why changing the radius variable never
+// visibly did anything: this notch was still being painted on top/beside
+// it regardless of its value. Collapse the notch to 0 width always, or the
+// two fight each other.
+:root#{$not_lwtheme_ext} #TabsToolbar {
   --uc-tab-corner-rounding: 0px !important;
+}
+
+// User-found fix for a stray 1px gap that appeared under the tab bar once
+// the tabs started floating as rounded pills instead of flush-filling the
+// full tab height.
+:root#{$not_lwtheme_ext} #TabsToolbar {
+  margin-bottom: -1px !important;
+}
+// That -1px pulled #nav-bar 1px closer, which exposed a native Firefox
+// seam line that used to be fully hidden under the tab's old flush square
+// bottom: #nav-bar has its own box-shadow (0 -0.01px 0 0, a near-zero
+// offset that still rounds to a visible hairline) - confirmed via a
+// chrome-privileged screenshot (drawWindow) once the tab stopped covering
+// that pixel row. Harmless to always remove, regardless of autohide state.
+:root#{$not_lwtheme_ext} #nav-bar {
+  box-shadow: none !important;
+}
+// Restore the lost 1px of spacing above the address bar - but ONLY while
+// #nav-bar is actually revealed (hover-expanded), not unconditionally:
+// #nav-bar autohides independently of the tab shape (Lepton's own
+// autohide feature, via a large negative margin-bottom while collapsed),
+// and an unconditional margin-top here was also adding +1px in the
+// COLLAPSED state, which combined with #TabsToolbar's constant -1px
+// above to reopen the exact stray gap that fix was meant to close.
+:root#{$not_lwtheme_ext} #navigator-toolbox:is(:hover, :focus-within) #nav-bar {
+  margin-top: 1px !important;
 }
 
 // Explorer's field has two concentric lines (dark outer, bright inner
 // highlight) over a faint top-to-bottom gradient, not a single flat border
-:root#{$not_lwtheme} .urlbar-background {
+:root#{$not_lwtheme_ext} .urlbar-background {
   border: 1px solid var(--toolbar-field-border-color) !important;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, White var(--uc-aero-field-highlight-opacity), transparent) !important;
   background-image: linear-gradient(
@@ -134,7 +179,7 @@
 // turning the text gray right when the glow needs it to stay solid black
 // the most. Neutralize by overriding the one variable that formula reads
 // from, rather than fighting the color: color-mix(...) declaration itself.
-:root#{$not_lwtheme} {
+:root#{$not_lwtheme_ext} {
   --inactive-titlebar-opacity: 1 !important;
 }
 
@@ -143,36 +188,54 @@
 // on #navigator-toolbox:-moz-window-inactive, an entirely independent
 // mechanism from Lepton's own dimming. Force it to match the normal active
 // text color instead of whatever dimmed gray Firefox defaults it to.
-:root#{$not_lwtheme} {
+:root#{$not_lwtheme_ext} {
   --toolbox-text-color-inactive: var(--win-text-color) !important;
 }
 
-:root#{$not_lwtheme} {
+:root#{$not_lwtheme_ext} {
   --uc-aero-glow-color: white;
-  --uc-aero-text-glow: 0 0 4px var(--uc-aero-glow-color), 0 0 4px var(--uc-aero-glow-color),
-    0 0 7px var(--uc-aero-glow-color), 0 0 10px var(--uc-aero-glow-color);
+  --uc-aero-text-glow: 0 0 10px #dadada, 0 0 10px #d0d0d0, 0 0 15px rgba(229, 229, 229, 0.9),
+    0 0 15px rgba(206, 206, 206, 0.9);
   --uc-aero-icon-glow-opacity: 70%;
   --uc-aero-icon-glow: drop-shadow(0 0 4px color-mix(in srgb, var(--uc-aero-glow-color) var(--uc-aero-icon-glow-opacity), transparent))
     drop-shadow(0 0 4px color-mix(in srgb, var(--uc-aero-glow-color) var(--uc-aero-icon-glow-opacity), transparent))
     drop-shadow(0 0 7px color-mix(in srgb, var(--uc-aero-glow-color) var(--uc-aero-icon-glow-opacity), transparent));
 }
-:root#{$not_lwtheme} {
+:root#{$not_lwtheme_ext} {
   @include Dark {
     --uc-aero-glow-color: black;
   }
 }
 
-:root#{$not_lwtheme} #titlebar,
-:root#{$not_lwtheme} #toolbar-menubar,
-:root#{$not_lwtheme} #TabsToolbar,
-:root#{$not_lwtheme} #nav-bar,
-:root#{$not_lwtheme} #PersonalToolbar {
+// Shape-agnostic "blob" glow for tab titles specifically, in place of the
+// text-shadow glow used everywhere else. Real Aero caption glow doesn't
+// trace individual letterforms the way text-shadow does; it reads as one
+// flat, soft-edged highlight behind the whole run of text. Built in a
+// separate HTML lab (screenshotted and iterated via Playwright) as a
+// near-solid patch behind .tab-text, blurred just enough to soften its
+// own edge - flat through the middle, same as the real thing. Text goes
+// near-black so all the contrast comes from the patch, same swap logic
+// as the icon/text-shadow glow above for dark mode.
+:root#{$not_lwtheme_ext} {
+  --uc-aero-blob-color: rgba(255, 255, 255, 0.6);
+  --uc-aero-blob-text-color: #0a0a0a;
+  @include Dark {
+    --uc-aero-blob-color: rgba(0, 0, 0, 0.6);
+    --uc-aero-blob-text-color: #f5f5f5;
+  }
+}
+
+:root#{$not_lwtheme_ext} #titlebar,
+:root#{$not_lwtheme_ext} #toolbar-menubar,
+:root#{$not_lwtheme_ext} #TabsToolbar,
+:root#{$not_lwtheme_ext} #nav-bar,
+:root#{$not_lwtheme_ext} #PersonalToolbar {
   text-shadow: var(--uc-aero-text-glow) !important;
 }
-:root#{$not_lwtheme} #urlbar {
+:root#{$not_lwtheme_ext} #urlbar {
   text-shadow: none !important;
 }
-:root#{$not_lwtheme} #navigator-toolbox .toolbarbutton-icon {
+:root#{$not_lwtheme_ext} #navigator-toolbox .toolbarbutton-icon {
   filter: var(--uc-aero-icon-glow) !important;
 }
 
@@ -182,8 +245,8 @@
 // browser renders the element+filter into a buffer, then crops that buffer
 // to the box if it has overflow set. So every icon's glow was being cropped
 // to its own exact bounds the whole time; no ancestor was ever involved.
-:root#{$not_lwtheme} #navigator-toolbox .toolbarbutton-icon,
-:root#{$not_lwtheme} #navigator-toolbox .webextension-browser-action {
+:root#{$not_lwtheme_ext} #navigator-toolbox .toolbarbutton-icon,
+:root#{$not_lwtheme_ext} #navigator-toolbox .webextension-browser-action {
   overflow: visible !important;
 }
 
@@ -191,19 +254,110 @@
 // and the same overflow-clips-filter gotcha as .toolbarbutton-icon above -
 // .tab-icon-stack (the ancestor stack containing the speaker icon) clips
 // its own overflow by default, cropping the glow to nothing without this.
-:root#{$not_lwtheme} .tab-audio-button {
+:root#{$not_lwtheme_ext} .tab-audio-button {
   filter: var(--uc-aero-icon-glow) !important;
 }
-:root#{$not_lwtheme} .tab-icon-stack {
+:root#{$not_lwtheme_ext} .tab-icon-stack {
   overflow: visible !important;
 }
 
-// TRADE-OFF: .tab-text needs overflow:hidden for its "..." ellipsis
-// truncation to work at all - relaxing it here for the full glow means long
-// tab titles no longer truncate cleanly (they'll just get cut off with no
-// "..." once they hit the tab's width, or spill visually into the next tab).
-:root#{$not_lwtheme} #TabsToolbar .tab-text {
-  overflow: visible !important;
+// Same glow on the tab's close ("x") button. Native Firefox also paints a
+// dark rounded hover/active highlight behind this button, which visually
+// fights the glow (covers it instead of glowing through it) - strip it.
+:root#{$not_lwtheme_ext} .tab-close-button {
+  filter: var(--uc-aero-icon-glow) !important;
+}
+:root#{$not_lwtheme_ext} .tab-close-button:is(:hover, :active) {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+// Native Firefox also resets .tab-close-button's padding from its resting
+// asymmetric 6px 6px 6px 1px to a uniform 6px on hover - not Lepton's own
+// CSS (confirmed absent from the whole src/ tree) - which shifts the icon
+// a few px to the right. Lock it to the resting value in both states.
+:root#{$not_lwtheme_ext} .tab-close-button {
+  padding: 6px 6px 6px 1px !important;
+}
+
+// Reverted the earlier "overflow: visible" trade-off here - text-overflow:
+// ellipsis REQUIRES overflow to be non-visible to take effect at all per
+// spec, so relaxing it not only let the glow bleed freely but also
+// silently killed native truncation, causing long titles to hard-clip mid
+// character instead of at a clean "..." - confirmed by the user's own
+// screenshot against a native Aero-glow reference showing smooth
+// truncation. Restoring the native overflow:hidden here brings back both
+// ellipsis truncation AND a clean, ellipsis-bounded glow edge, matching
+// the reference - the glow is still naturally clipped at the tab-text
+// box's own edges (top/bottom/left mostly unaffected in practice), but
+// that clip now lands at the "..." boundary instead of mid-glyph.
+//
+// User's idea for a pure-CSS smooth fade (no JS needed), refined: the
+// actual clipping ancestor is .tab-label-container (overflow: hidden,
+// confirmed via RDP ancestor walk - .tab-text's OWN overflow was always
+// "visible" and never the real constraint). Two problems with just adding
+// padding to the container (tried first, had no visible effect): (1)
+// confirmed via RDP that .tab-label-container is only ~20.4px tall,
+// vertically CENTERED inside the 28px .tab-content box via flex
+// align-items - it never spanned the tab's full height, so the glow had
+// almost no vertical room either, clipped tight against the text's own
+// line box; (2) padding on the clipping container itself doesn't reliably
+// shrink the child's own effective content width in this flex layout.
+// Fix: stretch .tab-label-container to the tab's full height (so there's
+// real vertical room inside its own clip box), and move the horizontal
+// buffer padding onto .tab-text itself (border-box, so its own padding
+// directly shrinks its own text content width, truncating a few px
+// earlier and leaving blank space for the glow to fade into before
+// hitting .tab-label-container's hard clip edge).
+:root#{$not_lwtheme_ext} .tab-label-container {
+  align-self: stretch !important;
+  // Was align-items: center - that stretched the CONTAINER to the tab's
+  // full height but still only centered .tab-text at its own natural
+  // line-height inside it, so .tab-text's own box never actually grew.
+  // Didn't matter for the text-shadow glow (it doesn't care about the
+  // element's own box height, just the glyphs), but the blob glow below
+  // sizes itself directly off .tab-text's box via inset, so a ~16px box
+  // left it almost no vertical room. Stretch here too so .tab-text's own
+  // box actually fills the full height; .tab-text re-centers its own
+  // text within that via display:flex below.
+  align-items: stretch !important;
+}
+:root#{$not_lwtheme_ext} .tab-text {
+  padding-inline-end: 10px !important;
+  margin-inline-start: 5.5px !important;
+}
+:root#{$not_lwtheme_ext} .tab-icon-image {
+  margin-inline-end: 0 !important;
+}
+
+// Swap the inherited text-shadow glow (from #TabsToolbar) for the blob
+// technique on tab titles specifically. isolation:isolate gives .tab-text
+// its own local stacking context so the pseudo's z-index: -1 resolves
+// right here instead of escaping to a distant ancestor (where it could
+// end up painted behind opaque backgrounds, invisible) - without it,
+// a positioned z-index:auto descendant also paints ABOVE normal inline
+// text per the stacking order, not behind it, so this isn't optional.
+:root#{$not_lwtheme_ext} #TabsToolbar .tab-text {
+  text-shadow: none !important;
+  color: var(--uc-aero-blob-text-color) !important;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  // .tab-label-container now stretches .tab-text to its full height (see
+  // above) - re-center the actual text within that taller box.
+  display: flex !important;
+  align-items: center !important;
+}
+:root#{$not_lwtheme_ext} #TabsToolbar .tab-text::before {
+  content: "";
+  position: absolute;
+  inset: 2px -3px;
+  margin-inline-start: 0;
+  margin-inline-end: 5px;
+  background: var(--uc-aero-blob-color);
+  filter: blur(3px);
+  border-radius: 7px;
+  z-index: -1;
+  pointer-events: none;
 }
 
 #titlebar,
@@ -226,10 +380,10 @@
 // Flipping appearance back to auto restores real OS-drawn buttons (glossy
 // Aero glass via OpenGlass), and clearing the glyph content stops it from
 // rendering on top of/behind the native paint.
-:root#{$not_lwtheme} .titlebar-min,
-:root#{$not_lwtheme} .titlebar-max,
-:root#{$not_lwtheme} .titlebar-restore,
-:root#{$not_lwtheme} .titlebar-close {
+:root#{$not_lwtheme_ext} .titlebar-min,
+:root#{$not_lwtheme_ext} .titlebar-max,
+:root#{$not_lwtheme_ext} .titlebar-restore,
+:root#{$not_lwtheme_ext} .titlebar-close {
   appearance: auto !important;
 
   &::before {

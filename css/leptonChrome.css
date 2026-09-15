@@ -2342,6 +2342,11 @@
       background-color: transparent !important;
       background-image: none !important;
     }
+    :root[privatebrowsingmode="temporary"] #nav-bar,
+    :root[privatebrowsingmode="temporary"] #PersonalToolbar {
+      background-color: transparent !important;
+      background-image: none !important;
+    }
     #appcontent {
       appearance: auto !important;
       -moz-default-appearance: -moz-win-exclude-glass !important;
@@ -2412,8 +2417,13 @@
     #navigator-toolbox {
       --lwt-accent-color: transparent !important;
       --lwt-text-color: WindowText !important;
+      --lwt-accent-color-inactive: transparent !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+    :root:not([theme-image-in-toolbox]) body,
+    :root[theme-image-in-toolbox] #navigator-toolbox {
+      background-image: none !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
       --uc-aero-field-opacity: 85%;
       --uc-aero-field-border-opacity: 75%;
       --uc-aero-field-highlight-opacity: 65%;
@@ -2433,51 +2443,58 @@
         transparent
       ) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-input-container,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-background,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #searchbar {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-input-container,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-background,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #searchbar {
       --urlbar-border-radius: 0px !important;
       --toolbarbutton-border-radius: 0px !important;
       border-radius: 0 !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #urlbar {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #urlbar {
       border: 1px solid #3a3a3a !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-input-container {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-input-container {
       border: 1px solid white !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tab-background {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-background {
       background-color: transparent !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tabbrowser-tab:is([selected], [multiselected]) .tab-content {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      .tabbrowser-tab:is([selected], [multiselected])
+      .tab-content {
       background-color: color-mix(
         in srgb,
         var(--win-component-bgcolor, White) var(--uc-aero-field-opacity),
         transparent
       ) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tabbrowser-tab:hover:not([selected], [multiselected]) .tab-content {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      .tabbrowser-tab:hover:not([selected], [multiselected])
+      .tab-content {
       background-color: var(--uc-tab-hover-dim-color, color-mix(in srgb, currentColor 10%, transparent)) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tabbrowser-tab .tab-content {
-      height: 28px !important;
-      align-self: center !important;
-      border-radius: var(--tab-border-radius, 4px) var(--tab-border-radius, 4px) var(--uc-tab-border-bottom-radius, 0px)
-        var(--uc-tab-border-bottom-radius, 0px) !important;
-      transition: border-bottom-left-radius 0s var(--uc-autohide-toolbar-delay, 600ms),
-        border-bottom-right-radius 0s var(--uc-autohide-toolbar-delay, 600ms);
-    }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme))
-      #navigator-toolbox:is(:hover, :focus-within)
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
       .tabbrowser-tab
       .tab-content {
-      --uc-tab-border-bottom-radius: var(--tab-border-radius, 4px) !important;
-      transition-delay: 0s !important;
+      height: 28px !important;
+      align-self: center !important;
+      border-radius: var(--tab-border-radius, 4px) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox:is(:hover, :focus-within) #TabsToolbar {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar {
       --uc-tab-corner-rounding: 0px !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-background {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar {
+      margin-bottom: -1px !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #nav-bar {
+      box-shadow: none !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      #navigator-toolbox:is(:hover, :focus-within)
+      #nav-bar {
+      margin-top: 1px !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-background {
       border: 1px solid var(--toolbar-field-border-color) !important;
       box-shadow: inset 0 0 0 1px color-mix(in srgb, White var(--uc-aero-field-highlight-opacity), transparent) !important;
       background-image: linear-gradient(
@@ -2486,16 +2503,16 @@
         transparent 60%
       ) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
       --inactive-titlebar-opacity: 1 !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
       --toolbox-text-color-inactive: var(--win-text-color) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
       --uc-aero-glow-color: white;
-      --uc-aero-text-glow: 0 0 4px var(--uc-aero-glow-color), 0 0 4px var(--uc-aero-glow-color),
-        0 0 7px var(--uc-aero-glow-color), 0 0 10px var(--uc-aero-glow-color);
+      --uc-aero-text-glow: 0 0 10px #dadada, 0 0 10px #d0d0d0, 0 0 15px rgba(229, 229, 229, 0.9),
+        0 0 15px rgba(206, 206, 206, 0.9);
       --uc-aero-icon-glow-opacity: 70%;
       --uc-aero-icon-glow: drop-shadow(
           0 0 4px color-mix(in srgb, var(--uc-aero-glow-color) var(--uc-aero-icon-glow-opacity), transparent)
@@ -2505,36 +2522,96 @@
     }
   }
   @media (-moz-platform: windows) and (prefers-color-scheme: dark) {
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
       --uc-aero-glow-color: black;
     }
   }
   @media (-moz-platform: windows) {
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #titlebar,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #toolbar-menubar,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #TabsToolbar,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #nav-bar,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #PersonalToolbar {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
+      --uc-aero-blob-color: rgba(255, 255, 255, 0.6);
+      --uc-aero-blob-text-color: #0a0a0a;
+    }
+  }
+  @media (-moz-platform: windows) and (prefers-color-scheme: dark) {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
+      --uc-aero-blob-color: rgba(0, 0, 0, 0.6);
+      --uc-aero-blob-text-color: #f5f5f5;
+    }
+  }
+  @media (-moz-platform: windows) {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #titlebar,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #toolbar-menubar,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #nav-bar,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #PersonalToolbar {
       text-shadow: var(--uc-aero-text-glow) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #urlbar {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #urlbar {
       text-shadow: none !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox .toolbarbutton-icon {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      #navigator-toolbox
+      .toolbarbutton-icon {
       filter: var(--uc-aero-icon-glow) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox .toolbarbutton-icon,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox .webextension-browser-action {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      #navigator-toolbox
+      .toolbarbutton-icon,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      #navigator-toolbox
+      .webextension-browser-action {
       overflow: visible !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tab-audio-button {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-audio-button {
       filter: var(--uc-aero-icon-glow) !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tab-icon-stack {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-icon-stack {
       overflow: visible !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #TabsToolbar .tab-text {
-      overflow: visible !important;
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-close-button {
+      filter: var(--uc-aero-icon-glow) !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      .tab-close-button:is(:hover, :active) {
+      background-color: transparent !important;
+      background-image: none !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-close-button {
+      padding: 6px 6px 6px 1px !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-label-container {
+      align-self: stretch !important;
+      align-items: stretch !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-text {
+      padding-inline-end: 10px !important;
+      margin-inline-start: 5.5px !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-icon-image {
+      margin-inline-end: 0 !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar .tab-text {
+      text-shadow: none !important;
+      color: var(--uc-aero-blob-text-color) !important;
+      position: relative;
+      isolation: isolate;
+      min-width: 0;
+      display: flex !important;
+      align-items: center !important;
+    }
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+      #TabsToolbar
+      .tab-text::before {
+      content: "";
+      position: absolute;
+      inset: 2px -3px;
+      margin-inline-start: 0;
+      margin-inline-end: 5px;
+      background: var(--uc-aero-blob-color);
+      filter: blur(3px);
+      border-radius: 7px;
+      z-index: -1;
+      pointer-events: none;
     }
     #titlebar .toolbarbutton-1,
     #toolbar-menubar .toolbarbutton-1,
@@ -2544,16 +2621,16 @@
     :root:not([sizemode="fullscreen"]) .titlebar-buttonbox-container .titlebar-button:not(.titlebar-close:hover) {
       list-style-image: none !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-min,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-max,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-restore,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-close {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-min,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-max,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-restore,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-close {
       appearance: auto !important;
     }
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-min::before,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-max::before,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-restore::before,
-    :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-close::before {
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-min::before,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-max::before,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-restore::before,
+    :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-close::before {
       content: none !important;
     }
     :root:not([sizemode="fullscreen"])
@@ -17188,6 +17265,11 @@
     background-color: transparent !important;
     background-image: none !important;
   }
+  :root[privatebrowsingmode="temporary"] #nav-bar,
+  :root[privatebrowsingmode="temporary"] #PersonalToolbar {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
   #appcontent {
     appearance: auto !important;
     -moz-default-appearance: -moz-win-exclude-glass !important;
@@ -17258,8 +17340,13 @@
   #navigator-toolbox {
     --lwt-accent-color: transparent !important;
     --lwt-text-color: WindowText !important;
+    --lwt-accent-color-inactive: transparent !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+  :root:not([theme-image-in-toolbox]) body,
+  :root[theme-image-in-toolbox] #navigator-toolbox {
+    background-image: none !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
     --uc-aero-field-opacity: 85%;
     --uc-aero-field-border-opacity: 75%;
     --uc-aero-field-highlight-opacity: 65%;
@@ -17279,51 +17366,56 @@
       transparent
     ) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-input-container,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-background,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #searchbar {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-input-container,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-background,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #searchbar {
     --urlbar-border-radius: 0px !important;
     --toolbarbutton-border-radius: 0px !important;
     border-radius: 0 !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #urlbar {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #urlbar {
     border: 1px solid #3a3a3a !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-input-container {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-input-container {
     border: 1px solid white !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tab-background {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-background {
     background-color: transparent !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tabbrowser-tab:is([selected], [multiselected]) .tab-content {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    .tabbrowser-tab:is([selected], [multiselected])
+    .tab-content {
     background-color: color-mix(
       in srgb,
       var(--win-component-bgcolor, White) var(--uc-aero-field-opacity),
       transparent
     ) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tabbrowser-tab:hover:not([selected], [multiselected]) .tab-content {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    .tabbrowser-tab:hover:not([selected], [multiselected])
+    .tab-content {
     background-color: var(--uc-tab-hover-dim-color, color-mix(in srgb, currentColor 10%, transparent)) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tabbrowser-tab .tab-content {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tabbrowser-tab .tab-content {
     height: 28px !important;
     align-self: center !important;
-    border-radius: var(--tab-border-radius, 4px) var(--tab-border-radius, 4px) var(--uc-tab-border-bottom-radius, 0px)
-      var(--uc-tab-border-bottom-radius, 0px) !important;
-    transition: border-bottom-left-radius 0s var(--uc-autohide-toolbar-delay, 600ms),
-      border-bottom-right-radius 0s var(--uc-autohide-toolbar-delay, 600ms);
+    border-radius: var(--tab-border-radius, 4px) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme))
-    #navigator-toolbox:is(:hover, :focus-within)
-    .tabbrowser-tab
-    .tab-content {
-    --uc-tab-border-bottom-radius: var(--tab-border-radius, 4px) !important;
-    transition-delay: 0s !important;
-  }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox:is(:hover, :focus-within) #TabsToolbar {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar {
     --uc-tab-corner-rounding: 0px !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .urlbar-background {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar {
+    margin-bottom: -1px !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #nav-bar {
+    box-shadow: none !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    #navigator-toolbox:is(:hover, :focus-within)
+    #nav-bar {
+    margin-top: 1px !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .urlbar-background {
     border: 1px solid var(--toolbar-field-border-color) !important;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, White var(--uc-aero-field-highlight-opacity), transparent) !important;
     background-image: linear-gradient(
@@ -17332,16 +17424,16 @@
       transparent 60%
     ) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
     --inactive-titlebar-opacity: 1 !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
     --toolbox-text-color-inactive: var(--win-text-color) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
     --uc-aero-glow-color: white;
-    --uc-aero-text-glow: 0 0 4px var(--uc-aero-glow-color), 0 0 4px var(--uc-aero-glow-color),
-      0 0 7px var(--uc-aero-glow-color), 0 0 10px var(--uc-aero-glow-color);
+    --uc-aero-text-glow: 0 0 10px #dadada, 0 0 10px #d0d0d0, 0 0 15px rgba(229, 229, 229, 0.9),
+      0 0 15px rgba(206, 206, 206, 0.9);
     --uc-aero-icon-glow-opacity: 70%;
     --uc-aero-icon-glow: drop-shadow(
         0 0 4px color-mix(in srgb, var(--uc-aero-glow-color) var(--uc-aero-icon-glow-opacity), transparent)
@@ -17351,36 +17443,96 @@
   }
 }
 @media (-moz-bool-pref: "userChrome.theme.transparent.frame") and (-moz-platform: windows) and (prefers-color-scheme: dark) {
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
     --uc-aero-glow-color: black;
   }
 }
 @media (-moz-bool-pref: "userChrome.theme.transparent.frame") and (-moz-platform: windows) {
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #titlebar,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #toolbar-menubar,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #TabsToolbar,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #nav-bar,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #PersonalToolbar {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
+    --uc-aero-blob-color: rgba(255, 255, 255, 0.6);
+    --uc-aero-blob-text-color: #0a0a0a;
+  }
+}
+@media (-moz-bool-pref: "userChrome.theme.transparent.frame") and (-moz-platform: windows) and (prefers-color-scheme: dark) {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) {
+    --uc-aero-blob-color: rgba(0, 0, 0, 0.6);
+    --uc-aero-blob-text-color: #f5f5f5;
+  }
+}
+@media (-moz-bool-pref: "userChrome.theme.transparent.frame") and (-moz-platform: windows) {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #titlebar,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #toolbar-menubar,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #nav-bar,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #PersonalToolbar {
     text-shadow: var(--uc-aero-text-glow) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #urlbar {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #urlbar {
     text-shadow: none !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox .toolbarbutton-icon {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    #navigator-toolbox
+    .toolbarbutton-icon {
     filter: var(--uc-aero-icon-glow) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox .toolbarbutton-icon,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #navigator-toolbox .webextension-browser-action {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    #navigator-toolbox
+    .toolbarbutton-icon,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    #navigator-toolbox
+    .webextension-browser-action {
     overflow: visible !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tab-audio-button {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-audio-button {
     filter: var(--uc-aero-icon-glow) !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .tab-icon-stack {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-icon-stack {
     overflow: visible !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) #TabsToolbar .tab-text {
-    overflow: visible !important;
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-close-button {
+    filter: var(--uc-aero-icon-glow) !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    .tab-close-button:is(:hover, :active) {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-close-button {
+    padding: 6px 6px 6px 1px !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-label-container {
+    align-self: stretch !important;
+    align-items: stretch !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-text {
+    padding-inline-end: 10px !important;
+    margin-inline-start: 5.5px !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .tab-icon-image {
+    margin-inline-end: 0 !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) #TabsToolbar .tab-text {
+    text-shadow: none !important;
+    color: var(--uc-aero-blob-text-color) !important;
+    position: relative;
+    isolation: isolate;
+    min-width: 0;
+    display: flex !important;
+    align-items: center !important;
+  }
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"])
+    #TabsToolbar
+    .tab-text::before {
+    content: "";
+    position: absolute;
+    inset: 2px -3px;
+    margin-inline-start: 0;
+    margin-inline-end: 5px;
+    background: var(--uc-aero-blob-color);
+    filter: blur(3px);
+    border-radius: 7px;
+    z-index: -1;
+    pointer-events: none;
   }
   #titlebar .toolbarbutton-1,
   #toolbar-menubar .toolbarbutton-1,
@@ -17390,16 +17542,16 @@
   :root:not([sizemode="fullscreen"]) .titlebar-buttonbox-container .titlebar-button:not(.titlebar-close:hover) {
     list-style-image: none !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-min,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-max,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-restore,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-close {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-min,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-max,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-restore,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-close {
     appearance: auto !important;
   }
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-min::before,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-max::before,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-restore::before,
-  :root:is(:not([lwtheme]), :not(:-moz-lwtheme)) .titlebar-close::before {
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-min::before,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-max::before,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-restore::before,
+  :root:is(:is(:not([lwtheme]), :not(:-moz-lwtheme)), [privatebrowsingmode="temporary"]) .titlebar-close::before {
     content: none !important;
   }
   :root:not([sizemode="fullscreen"])

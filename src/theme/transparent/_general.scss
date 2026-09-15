@@ -36,6 +36,21 @@
   }
 }
 
+// Private-browsing windows carry Firefox's own built-in "private" lwtheme
+// (lwtheme=true, not something the user installed), so they hit the
+// @include lwtheme branch above instead of not_lwtheme - which painted a
+// real dark background (--toolbar-background-color: rgba(0,0,0,0.2) for
+// the private theme) straight onto #nav-bar, confirmed via RDP by walking
+// the ancestor chain from .urlbar-background and finding it there. Force
+// the same transparent treatment as not_lwtheme for private windows too.
+:root[privatebrowsingmode="temporary"] {
+  #nav-bar,
+  #PersonalToolbar {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+}
+
 #appcontent {
   appearance: auto !important;
   -moz-default-appearance: -moz-win-exclude-glass !important;
